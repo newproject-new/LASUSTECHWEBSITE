@@ -1,0 +1,200 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    @apply bg-gray-50 text-gray-800 font-sans antialiased;
+    margin: 0;
+  }
+}
+
+@layer components {
+  /* ── Buttons ─────────────────────────────────────────────────── */
+  .btn-primary {
+    @apply inline-flex items-center justify-center px-4 py-2 bg-brand-800 text-white font-medium rounded-lg hover:bg-brand-900 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-all duration-200 disabled:opacity-50 disabled:cursor-not-allowed;
+  }
+  .btn-secondary {
+    @apply inline-flex items-center justify-center px-4 py-2 bg-white text-gray-700 font-medium rounded-lg border border-gray-300 hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:ring-offset-2 transition-all duration-200;
+  }
+  .btn-danger {
+    @apply inline-flex items-center justify-center px-4 py-2 bg-red-600 text-white font-medium rounded-lg hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2 transition-all duration-200;
+  }
+  .btn-success {
+    @apply inline-flex items-center justify-center px-4 py-2 bg-green-600 text-white font-medium rounded-lg hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2 transition-all duration-200;
+  }
+
+  /* ── Cards ──────────────────────────────────────────────────── */
+  .card {
+    @apply bg-white rounded-xl shadow-sm border border-gray-100 overflow-hidden;
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:-translate-y-1 hover:shadow-lg;
+  }
+
+  /* ── Forms ──────────────────────────────────────────────────── */
+  .form-input {
+    @apply w-full px-4 py-2.5 border border-gray-300 rounded-lg text-gray-900 placeholder-gray-400 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:border-brand-500 transition-colors;
+  }
+  .form-label {
+    @apply block text-sm font-medium text-gray-700 mb-1.5;
+  }
+
+  /* ── Badges ─────────────────────────────────────────────────── */
+  .badge        { @apply inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium; }
+  .badge-blue   { @apply badge bg-blue-100 text-blue-800; }
+  .badge-green  { @apply badge bg-green-100 text-green-800; }
+  .badge-red    { @apply badge bg-red-100 text-red-800; }
+  .badge-gray   { @apply badge bg-gray-100 text-gray-800; }
+  .badge-yellow { @apply badge bg-yellow-100 text-yellow-800; }
+
+  /* ── Page Structure ─────────────────────────────────────────── */
+  .page-header { @apply mb-6 pb-4 border-b border-gray-200; }
+
+  /* ── Prose (Lesson content) ─────────────────────────────────── */
+  .prose-content h1       { @apply text-2xl font-bold text-gray-900 mb-4 mt-6; }
+  .prose-content h2       { @apply text-xl font-semibold text-gray-800 mb-3 mt-5; }
+  .prose-content h3       { @apply text-lg font-semibold text-gray-700 mb-2 mt-4; }
+  .prose-content p        { @apply text-gray-700 mb-3 leading-relaxed; }
+  .prose-content ul,
+  .prose-content ol       { @apply pl-5 mb-3 space-y-1; }
+  .prose-content li       { @apply text-gray-700; }
+  .prose-content code     { @apply bg-gray-100 text-brand-800 px-1.5 py-0.5 rounded text-sm font-mono; }
+  .prose-content pre      { @apply bg-gray-900 text-gray-100 p-4 rounded-lg overflow-x-auto mb-4 text-sm font-mono; }
+  .prose-content table    { @apply w-full border-collapse mb-4; }
+  .prose-content th       { @apply bg-brand-900 text-white px-4 py-2 text-left text-sm font-medium; }
+  .prose-content td       { @apply border border-gray-200 px-4 py-2 text-sm text-gray-700; }
+  .prose-content tr:nth-child(even) td { @apply bg-gray-50; }
+  .prose-content strong   { @apply font-semibold text-gray-900; }
+  .prose-content blockquote { @apply border-l-4 border-brand-500 pl-4 italic text-gray-600 mb-3; }
+
+  /* ── Sidebar ────────────────────────────────────────────────── */
+  .sidebar-link        { @apply flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-150; }
+  .sidebar-link.active { @apply bg-brand-800 text-white shadow-sm; }
+  .sidebar-link:not(.active) { @apply text-gray-600 hover:bg-gray-100 hover:text-gray-900; }
+
+  /* ── Network bars ───────────────────────────────────────────── */
+  .network-bar-full   { @apply bg-green-500; }
+  .network-bar-medium { @apply bg-yellow-500; }
+  .network-bar-lite   { @apply bg-red-500; }
+
+  /* ── Homepage: Hero section ─────────────────────────────────── */
+  .hero-slide {
+    position: absolute;
+    inset: 0;
+    transition: opacity 1.2s ease-in-out;
+  }
+  .hero-slide.active   { opacity: 1; }
+  .hero-slide.inactive { opacity: 0; }
+
+  /* ── Homepage: News / Program carousel cards ────────────────── */
+  .news-card {
+    @apply bg-white rounded-lg overflow-hidden transition-all duration-300;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+  }
+  .news-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+  }
+
+  /* ── Homepage: Quick link cards ─────────────────────────────── */
+  .quick-link-card {
+    @apply flex flex-col items-center text-center px-6 py-8 cursor-pointer transition-all duration-300;
+  }
+  .quick-link-card:hover {
+    background: rgba(139,0,0,0.04);
+  }
+
+  /* ── Homepage: Section headings ─────────────────────────────── */
+  .section-title {
+    @apply text-3xl font-extrabold text-brand-800 text-center;
+  }
+  .section-subtitle {
+    @apply text-base text-gray-500 text-center mt-2;
+  }
+  .section-title-dark {
+    @apply text-3xl font-extrabold text-gray-900 text-center;
+  }
+
+  /* ── Homepage: Scroll mouse indicator ───────────────────────── */
+  .scroll-mouse {
+    width: 26px;
+    height: 40px;
+    border: 2px solid rgba(255,255,255,0.7);
+    border-radius: 13px;
+    display: flex;
+    align-items: flex-start;
+    justify-content: center;
+    padding-top: 6px;
+  }
+  .scroll-mouse-dot {
+    width: 4px;
+    height: 8px;
+    background: white;
+    border-radius: 2px;
+    animation: bounceSlow 2s infinite;
+  }
+
+  /* ── Homepage: Visitors counter digit block ─────────────────── */
+  .digit-block {
+    @apply inline-block bg-gray-900 text-white font-bold rounded-md px-3 py-2;
+    font-size: 2.25rem;
+    line-height: 1;
+    font-variant-numeric: tabular-nums;
+    letter-spacing: 0.05em;
+    min-width: 3rem;
+    text-align: center;
+  }
+
+  /* ── Homepage: Footer ───────────────────────────────────────── */
+  .footer-link {
+    @apply text-gray-400 text-sm hover:text-white transition-colors duration-200;
+  }
+  .footer-heading {
+    @apply text-white font-semibold text-base mb-4;
+  }
+}
+
+/* ── Adaptive content transitions ─────────────────────────────── */
+.adaptive-transition { transition: all 0.3s ease; }
+.mode-full    { --img-filter: none; }
+.mode-medium  { --img-filter: grayscale(10%) contrast(90%); }
+.mode-lite    { --img-filter: grayscale(100%); }
+
+/* ── Scrollbar ────────────────────────────────────────────────── */
+::-webkit-scrollbar       { width: 6px; height: 6px; }
+::-webkit-scrollbar-track { background: #f1f5f9; }
+::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+
+/* ── Homepage: Crossfade hero keyframes ────────────────────────── */
+@keyframes bounceSlow {
+  0%, 100% { transform: translateY(0);   opacity: 1;   }
+  50%       { transform: translateY(6px); opacity: 0.6; }
+}
+
+@keyframes pulseDot {
+  0%, 100% { box-shadow: 0 0 0 0   rgba(239,68,68,0.7); }
+  50%       { box-shadow: 0 0 0 10px rgba(239,68,68,0);   }
+}
+
+/* ── Homepage: Flashcard slide-up ─────────────────────────────── */
+@keyframes slideUp {
+  from { transform: translateY(120%); opacity: 0; }
+  to   { transform: translateY(0);    opacity: 1; }
+}
+.animate-slide-up { animation: slideUp 0.55s cubic-bezier(0.22,1,0.36,1) forwards; }
+
+/* ── Homepage: Fade-in ────────────────────────────────────────── */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+.animate-fade-in { animation: fadeIn 0.3s ease forwards; }
+
+/* ── Print ────────────────────────────────────────────────────── */
+@media print {
+  .no-print { display: none !important; }
+}
