@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom';
 import { useAuth } from '../../contexts/AuthContext';
 import { useNetwork } from '../../contexts/NetworkContext';
 import api from '../../services/api';
+import AdaptiveImage from '../../components/adaptive/AdaptiveImage';
 
 // ─── Static rich content (supplements API data) ───────────────────────────────
 
@@ -192,9 +193,12 @@ export default function StudentDashboard() {
           {activeMode !== 'lite' ? (
             <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-4">
               {displayCourses.map(course => (
-                <Link key={course.id} to={`/student/courses/${course.id}`} className="card hover:shadow-md transition-shadow group">
-                  <div className="h-28 bg-gradient-to-br from-brand-900 to-brand-700 flex items-end p-4">
-                    <span className="badge badge-blue text-xs">{course.code}</span>
+                <Link key={course.id} to={`/student/courses/${course.id}`} className="card hover:shadow-md transition-shadow group overflow-hidden">
+                  <div className="h-40 relative overflow-hidden">
+                    <AdaptiveImage src={course.thumbnail} alt={course.title} seed={course.code} className="w-full h-40" />
+                    <div className="absolute top-3 left-3">
+                      <span className="badge badge-blue text-xs">{course.code}</span>
+                    </div>
                   </div>
                   <div className="p-4">
                     <h3 className="font-semibold text-gray-900 text-sm leading-tight mb-1 group-hover:text-brand-800 transition-colors">
