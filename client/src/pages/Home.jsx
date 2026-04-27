@@ -369,9 +369,13 @@ function HomeNavbar() {
   const [mobileOpen, setMobileOpen] = useState(false);
 
   useEffect(() => {
-    const handler = () => setScrolled(window.scrollY > 10);
+    let rafId;
+    const handler = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => setScrolled(window.scrollY > 10));
+    };
     window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
+    return () => { window.removeEventListener('scroll', handler); cancelAnimationFrame(rafId); };
   }, []);
 
   return (
@@ -500,7 +504,9 @@ function HeroSection({ topOffset }) {
 
   useEffect(() => {
     startAuto();
-    return () => clearInterval(intervalRef.current);
+    const onVisibility = () => document.hidden ? clearInterval(intervalRef.current) : startAuto();
+    document.addEventListener('visibilitychange', onVisibility);
+    return () => { clearInterval(intervalRef.current); document.removeEventListener('visibilitychange', onVisibility); };
   }, [startAuto]);
 
   const goTo = (idx) => { setCurrent(idx); startAuto(); };
@@ -524,6 +530,7 @@ function HeroSection({ topOffset }) {
             alt={slide.headline}
             className="w-full h-full object-cover"
             loading={i === 0 ? 'eager' : 'lazy'}
+            fetchPriority={i === 0 ? 'high' : 'low'}
           />
           {/* Dark overlay */}
           <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.55)' }} />
@@ -993,10 +1000,10 @@ function VisitorsCounter() {
           <span className="text-xs font-bold tracking-[0.2em] uppercase text-brand-800">
             Platform Activity — Live
           </span>
-          <span
-            className="w-2.5 h-2.5 rounded-full bg-red-500"
-            style={{ animation: 'pulseDot 1.5s ease-in-out infinite' }}
-          />
+          <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-red-400 opacity-75" />
+            <span className="relative inline-flex h-2.5 w-2.5 rounded-full bg-red-500" />
+          </span>
         </div>
 
         {/* Stat blocks */}
@@ -1165,9 +1172,13 @@ function ScrollToTop() {
   const [show, setShow] = useState(false);
 
   useEffect(() => {
-    const handler = () => setShow(window.scrollY > 350);
+    let rafId;
+    const handler = () => {
+      cancelAnimationFrame(rafId);
+      rafId = requestAnimationFrame(() => setShow(window.scrollY > 350));
+    };
     window.addEventListener('scroll', handler, { passive: true });
-    return () => window.removeEventListener('scroll', handler);
+    return () => { window.removeEventListener('scroll', handler); cancelAnimationFrame(rafId); };
   }, []);
 
   if (!show) return null;

@@ -91,17 +91,19 @@
 
   /* ── Homepage: News / Program carousel cards ────────────────── */
   .news-card {
-    @apply bg-white rounded-lg overflow-hidden transition-all duration-300;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.08);
+    @apply bg-white rounded-lg overflow-hidden;
+    filter: drop-shadow(0 2px 8px rgba(0,0,0,0.08));
+    transition: transform 0.3s ease, filter 0.3s ease;
+    will-change: transform;
   }
   .news-card:hover {
     transform: translateY(-4px);
-    box-shadow: 0 8px 24px rgba(0,0,0,0.14);
+    filter: drop-shadow(0 8px 24px rgba(0,0,0,0.14));
   }
 
   /* ── Homepage: Quick link cards ─────────────────────────────── */
   .quick-link-card {
-    @apply flex flex-col items-center text-center px-6 py-8 cursor-pointer transition-all duration-300;
+    @apply flex flex-col items-center text-center px-6 py-8 cursor-pointer;
   }
   .quick-link-card:hover {
     background: rgba(139,0,0,0.04);
@@ -175,10 +177,7 @@
   50%       { transform: translateY(6px); opacity: 0.6; }
 }
 
-@keyframes pulseDot {
-  0%, 100% { box-shadow: 0 0 0 0   rgba(239,68,68,0.7); }
-  50%       { box-shadow: 0 0 0 10px rgba(239,68,68,0);   }
-}
+/* pulseDot replaced by Tailwind animate-ping in JSX — composited, no box-shadow animation */
 
 /* ── Homepage: Flashcard slide-up ─────────────────────────────── */
 @keyframes slideUp {
