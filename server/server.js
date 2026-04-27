@@ -3,6 +3,15 @@ const cors = require('cors');
 const path = require('path');
 require('dotenv').config();
 
+// On Firebase Functions runtime, pull JWT_SECRET from functions config if not already in env
+if (process.env.FIREBASE_CONFIG) {
+  try {
+    const fc = require('firebase-functions').config();
+    if (fc.app?.jwt_secret && !process.env.JWT_SECRET)
+      process.env.JWT_SECRET = fc.app.jwt_secret;
+  } catch { /* local dev — firebase-functions not required here */ }
+}
+
 const authRoutes = require('./routes/auth');
 const courseRoutes = require('./routes/courses');
 const lessonRoutes = require('./routes/lessons');
@@ -36,6 +45,39 @@ app.use('/api/admin', adminRoutes);
 app.use('/api/quizzes', quizRoutes);
 app.use('/api/progress', progressRoutes);
 app.use('/api/uploads', uploadRoutes);
+
+// --- UNIFIED DEPLOYMENT LOGIC (ROBUST) ---
+const fs = require('fs');
+const isProduction = process.env.NODE_ENV === 'production' || process.env.RAILWAY_ENVIRONMENT;
+
+if (isProduction) {
+  const buildPath = path.resolve(__dirname, '../client/build');
+  console.log(`[Deployment] Checking for build folder at: ${buildPath}`);
+
+  if (fs.existsSync(buildPath)) {
+    console.log('[Deployment] Build folder found! Serving static files.');
+    app.use(express.static(buildPath));
+    app.get('*', (req, res) => {
+      if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'API route not found' });
+      res.sendFile(path.join(buildPath, 'index.html'));
+    });
+  } else {
+    console.error('[Deployment] ERROR: Build folder NOT FOUND at ' + buildPath);
+    app.get('*', (req, res) => {
+      if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'API route not found' });
+      res.status(500).send(`
+        <h1>Deployment Error</h1>
+        <p>The backend is running, but the frontend build folder was not found.</p>
+        <p><strong>Path checked:</strong> ${buildPath}</p>
+        <p>Please check your Railway build logs to see if <code>npm run build</code> succeeded.</p>
+      `);
+    });
+  }
+} else {
+  console.log('[Deployment] Running in development mode.');
+  app.get('/', (req, res) => res.json({ message: 'API is running in dev mode.' }));
+}
+// ------------------------------------------
 
 app.get('/api/health', (req, res) => {
   const store = require('./data/store');
