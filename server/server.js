@@ -51,22 +51,25 @@ const fs = require('fs');
 const isProduction = process.env.NODE_ENV === 'production' || process.env.RAILWAY_ENVIRONMENT;
 
 if (isProduction) {
-  // Try a few common path variations for Linux/Railway
+  // Super robust path check
   const possiblePaths = [
     path.resolve(__dirname, '../client/build'),
+    path.resolve(__dirname, '../../client/build'),
     path.join(process.cwd(), 'client/build'),
-    path.join(process.cwd(), '../client/build')
+    '/app/client/build'
   ];
   
-  let buildPath = possiblePaths[0];
+  console.log('[Deployment] Current __dirname:', __dirname);
+  console.log('[Deployment] Current process.cwd():', process.cwd());
+  
+  let buildPath = null;
   for (const p of possiblePaths) {
+    console.log(`[Deployment] Checking path: ${p} ... ${fs.existsSync(p) ? 'FOUND' : 'NOT FOUND'}`);
     if (fs.existsSync(p)) {
       buildPath = p;
       break;
     }
   }
-
-  console.log(`[Deployment] Final build path: ${buildPath}`);
 
   if (fs.existsSync(buildPath)) {
     console.log('[Deployment] Build folder found! Serving static files.');

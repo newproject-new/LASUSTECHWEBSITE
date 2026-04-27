@@ -16,9 +16,7 @@
     "start:server": "cd server && npm start",
     "start:client": "cd client && npm start"
   },
-  "dependencies": {
-    "firebase-functions": "^4.9.0"
-  },
+  "dependencies": {},
   "devDependencies": {
     "concurrently": "^8.2.2"
   }
