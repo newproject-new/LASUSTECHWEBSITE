@@ -51,8 +51,22 @@ const fs = require('fs');
 const isProduction = process.env.NODE_ENV === 'production' || process.env.RAILWAY_ENVIRONMENT;
 
 if (isProduction) {
-  const buildPath = path.resolve(__dirname, '../client/build');
-  console.log(`[Deployment] Checking for build folder at: ${buildPath}`);
+  // Try a few common path variations for Linux/Railway
+  const possiblePaths = [
+    path.resolve(__dirname, '../client/build'),
+    path.join(process.cwd(), 'client/build'),
+    path.join(process.cwd(), '../client/build')
+  ];
+  
+  let buildPath = possiblePaths[0];
+  for (const p of possiblePaths) {
+    if (fs.existsSync(p)) {
+      buildPath = p;
+      break;
+    }
+  }
+
+  console.log(`[Deployment] Final build path: ${buildPath}`);
 
   if (fs.existsSync(buildPath)) {
     console.log('[Deployment] Build folder found! Serving static files.');
@@ -62,14 +76,15 @@ if (isProduction) {
       res.sendFile(path.join(buildPath, 'index.html'));
     });
   } else {
-    console.error('[Deployment] ERROR: Build folder NOT FOUND at ' + buildPath);
+    console.error('[Deployment] ERROR: Build folder NOT FOUND. Paths tried:', possiblePaths);
     app.get('*', (req, res) => {
       if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'API route not found' });
       res.status(500).send(`
         <h1>Deployment Error</h1>
         <p>The backend is running, but the frontend build folder was not found.</p>
-        <p><strong>Path checked:</strong> ${buildPath}</p>
-        <p>Please check your Railway build logs to see if <code>npm run build</code> succeeded.</p>
+        <p><strong>Paths searched:</strong><br>${possiblePaths.join('<br>')}</p>
+        <p><strong>Current Directory:</strong> ${process.cwd()}</p>
+        <p>Please ensure <code>npm run build</code> is running during your Railway build step.</p>
       `);
     });
   }
