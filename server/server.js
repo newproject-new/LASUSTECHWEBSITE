@@ -51,25 +51,11 @@ const fs = require('fs');
 const isProduction = process.env.NODE_ENV === 'production' || process.env.RAILWAY_ENVIRONMENT;
 
 if (isProduction) {
-  // Super robust path check
-  const possiblePaths = [
-    path.resolve(__dirname, '../client/build'),
-    path.resolve(__dirname, '../../client/build'),
-    path.join(process.cwd(), 'client/build'),
-    '/app/client/build'
-  ];
+  // Look for build folder relative to THIS file (it will be in the same folder now)
+  const buildPath = path.resolve(__dirname, 'build');
   
   console.log('[Deployment] Current __dirname:', __dirname);
-  console.log('[Deployment] Current process.cwd():', process.cwd());
-  
-  let buildPath = null;
-  for (const p of possiblePaths) {
-    console.log(`[Deployment] Checking path: ${p} ... ${fs.existsSync(p) ? 'FOUND' : 'NOT FOUND'}`);
-    if (fs.existsSync(p)) {
-      buildPath = p;
-      break;
-    }
-  }
+  console.log('[Deployment] Looking for build folder at:', buildPath);
 
   if (fs.existsSync(buildPath)) {
     console.log('[Deployment] Build folder found! Serving static files.');
@@ -79,28 +65,22 @@ if (isProduction) {
       res.sendFile(path.join(buildPath, 'index.html'));
     });
   } else {
-    console.error('[Deployment] ERROR: Build folder NOT FOUND. Paths tried:', possiblePaths);
-
-    // DEBUG: See what actually exists in the client folder
-    let clientContent = 'Unable to read directory';
-    try {
-      clientContent = fs.readdirSync(path.join(process.cwd(), 'client')).join(', ');
-    } catch (e) {
-      clientContent = 'Error reading client dir: ' + e.message;
+    // Fallback to searching higher up just in case
+    const backupPath = path.resolve(__dirname, '../client/build');
+    if (fs.existsSync(backupPath)) {
+      console.log('[Deployment] Found build at backup path:', backupPath);
+      app.use(express.static(backupPath));
+      app.get('*', (req, res) => {
+        if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'API route not found' });
+        res.sendFile(path.join(backupPath, 'index.html'));
+      });
+    } else {
+      console.error('[Deployment] ERROR: No build folder found anywhere.');
+      app.get('*', (req, res) => {
+        if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'API route not found' });
+        res.status(500).send('<h1>Deployment Error</h1><p>Frontend build not found.</p>');
+      });
     }
-
-    app.get('*', (req, res) => {
-      if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'API route not found' });
-      res.status(500).send(`
-        <h1>Deployment Error</h1>
-        <p>The backend is running, but the frontend build folder was not found.</p>
-        <p><strong>Current Directory (/app) contains:</strong> ${fs.readdirSync(process.cwd()).join(', ')}</p>
-        <p><strong>Client Directory (/app/client) contains:</strong> ${clientContent}</p>
-        <hr>
-        <p><strong>Paths searched:</strong><br>${possiblePaths.join('<br>')}</p>
-        <p>Please check your Railway build logs. If you don't see "npm run build --prefix client" running, Railway is skipping the build.</p>
-      `);
-    });
   }
 } else {
   console.log('[Deployment] Running in development mode.');
