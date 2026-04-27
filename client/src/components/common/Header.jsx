@@ -57,7 +57,7 @@ export default function Header({ onMenuClick }) {
             </div>
             <div className="hidden sm:block">
               <div className="text-white font-bold text-sm leading-tight">LASUSTECH</div>
-              <div className="text-brand-300 text-xs leading-tight">Learn Portal</div>
+              <div className="text-brand-300 text-xs leading-tight">E-Learning Portal</div>
             </div>
           </Link>
         </div>

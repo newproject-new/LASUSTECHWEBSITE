@@ -73,7 +73,7 @@ export default function AdminDashboard() {
       <div className="page-header flex items-center justify-between flex-wrap gap-4">
         <div>
           <h1 className="text-2xl font-bold text-gray-900">System Dashboard</h1>
-          <p className="text-gray-500 text-sm mt-0.5">LASUSTECH Learn Portal Administration — 2025/2026</p>
+          <p className="text-gray-500 text-sm mt-0.5">LASUSTECH E-LEARNING PORTAL Administration — 2025/2026</p>
         </div>
         <div className="flex gap-3">
           <Link to="/admin/users"  className="btn-secondary text-sm">Manage Users</Link>

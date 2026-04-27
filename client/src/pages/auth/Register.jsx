@@ -34,7 +34,7 @@ export default function Register() {
             <span className="text-brand-900 font-black text-lg">LS</span>
           </div>
           <h1 className="text-2xl font-black text-white">Create Your Account</h1>
-          <p className="text-brand-300 text-sm mt-1">LASUSTECH Learn Portal Registration</p>
+          <p className="text-brand-300 text-sm mt-1">LASUSTECH E-LEARNING PORTAL Registration</p>
         </div>
 
         <div className="bg-white rounded-3xl shadow-2xl p-8">
