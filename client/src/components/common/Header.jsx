@@ -48,12 +48,16 @@ export default function Header({ onMenuClick }) {
     <header className="fixed top-0 left-0 right-0 z-50 bg-brand-900 shadow-lg">
       <div className="flex items-center justify-between h-16 px-4 lg:px-6">
         <div className="flex items-center gap-3">
-          <button onClick={onMenuClick} className="lg:hidden text-white p-1.5 rounded-lg hover:bg-brand-800 transition-colors">
+          <button
+            onClick={onMenuClick}
+            className="lg:hidden text-white p-2.5 rounded-lg hover:bg-brand-800 transition-colors"
+            aria-label="Open navigation menu"
+          >
             {icons.menu}
           </button>
           <Link to="/" className="flex items-center gap-2">
             <div className="w-9 h-9 bg-white rounded-full overflow-hidden flex items-center justify-center p-0.5">
-              <img src="/images/logo.jpg" alt="LASUSTECH" className="w-full h-full object-contain" />
+              <img src="/images/logo.jpg" alt="LASUSTECH Logo" className="w-full h-full object-contain" />
             </div>
             <div className="hidden sm:block">
               <div className="text-white font-bold text-sm leading-tight">LASUSTECH</div>
@@ -67,6 +71,7 @@ export default function Header({ onMenuClick }) {
             onClick={() => setShowDashboard(!showDashboard)}
             className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-brand-800 hover:bg-brand-700 transition-colors"
             title="Network Dashboard"
+            aria-label="Toggle network performance dashboard"
           >
             <div className={`w-2 h-2 rounded-full ${modeColors[activeMode]} animate-pulse`}></div>
             <span className="text-white text-xs font-medium hidden sm:block">
@@ -80,6 +85,8 @@ export default function Header({ onMenuClick }) {
             <button
               onClick={() => setDropdownOpen(!dropdownOpen)}
               className="flex items-center gap-2 px-2 py-1.5 rounded-lg hover:bg-brand-800 transition-colors"
+              aria-label="User account menu"
+              aria-expanded={dropdownOpen}
             >
               <div className="w-8 h-8 bg-white rounded-full flex items-center justify-center text-brand-900 font-bold text-sm">
                 {user?.name?.charAt(0)}

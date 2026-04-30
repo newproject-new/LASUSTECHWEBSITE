@@ -59,7 +59,13 @@ if (isProduction) {
 
   if (fs.existsSync(buildPath)) {
     console.log('[Deployment] Build folder found! Serving static files.');
-    app.use(express.static(buildPath));
+    // Cache static assets for 1 year
+    app.use(express.static(buildPath, {
+      maxAge: '1y',
+      immutable: true,
+      index: false // Let the '*' route handle index.html to avoid cache issues with the entry point
+    }));
+    
     app.get('*', (req, res) => {
       if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'API route not found' });
       res.sendFile(path.join(buildPath, 'index.html'));

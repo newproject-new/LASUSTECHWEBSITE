@@ -144,7 +144,14 @@ export default function Sidebar({ isOpen, onClose }) {
 
   return (
     <>
-      {isOpen && <div className="fixed inset-0 z-30 bg-black bg-opacity-40 lg:hidden" onClick={onClose} />}
+      {isOpen && (
+        <div 
+          className="fixed inset-0 z-30 bg-black bg-opacity-40 lg:hidden" 
+          onClick={onClose} 
+          role="button"
+          aria-label="Close navigation menu"
+        />
+      )}
       <aside className={`fixed left-0 top-16 bottom-0 w-64 bg-white border-r border-gray-200 z-40 transform transition-transform duration-300 ease-in-out overflow-y-auto ${isOpen ? 'translate-x-0' : '-translate-x-full'} lg:translate-x-0`}>
         <div className="p-4">
           <div className="mb-6 px-3 py-3 bg-brand-50 rounded-xl border border-brand-100">
@@ -160,6 +167,7 @@ export default function Sidebar({ isOpen, onClose }) {
                 to={item.to}
                 onClick={onClose}
                 className={({ isActive }) => `sidebar-link${isActive ? ' active' : ''}`}
+                aria-label={`Go to ${item.label}`}
               >
                 {Icons[item.icon]}
                 <span>{item.label}</span>
@@ -172,6 +180,8 @@ export default function Sidebar({ isOpen, onClose }) {
             <button
               onClick={() => setNetworkOpen(v => !v)}
               className="w-full sidebar-link justify-between"
+              aria-label="Toggle network details panel"
+              aria-expanded={networkOpen}
             >
               <span className="flex items-center gap-3">
                 {Icons.network}
@@ -180,6 +190,7 @@ export default function Sidebar({ isOpen, onClose }) {
               <svg
                 className={`w-4 h-4 text-gray-400 transition-transform ${networkOpen ? 'rotate-180' : ''}`}
                 fill="none" stroke="currentColor" viewBox="0 0 24 24"
+                aria-hidden="true"
               >
                 <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 9l-7 7-7-7" />
               </svg>

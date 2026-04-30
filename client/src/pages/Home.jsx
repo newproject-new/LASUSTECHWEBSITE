@@ -394,7 +394,7 @@ function HomeNavbar() {
             <div className="font-extrabold text-gray-900 text-sm leading-tight tracking-tight">
               LAGOS STATE UNIVERSITY
             </div>
-            <div className="text-gray-500 text-[10px] font-medium tracking-widest leading-tight uppercase">
+            <div className="text-gray-600 text-[10px] font-medium tracking-widest leading-tight uppercase">
               Of Science and Technology
             </div>
           </div>
@@ -645,10 +645,10 @@ function QuickLinksBar() {
               >
                 <Icon className="w-7 h-7 text-brand-800" />
               </div>
-              <h3 className="text-base font-bold text-gray-900 group-hover:text-brand-800 transition-colors">
+              <h2 className="text-base font-bold text-gray-900 group-hover:text-brand-800 transition-colors">
                 {title}
-              </h3>
-              <p className="text-sm text-gray-500 mt-1">{sub}</p>
+              </h2>
+              <p className="text-sm text-gray-600 mt-1">{sub}</p>
             </Link>
           ))}
         </div>
@@ -694,7 +694,8 @@ function NewsCarousel() {
           <button
             onClick={prev}
             disabled={offset === 0}
-            className="shrink-0 self-center w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-brand-800 hover:text-brand-800 disabled:opacity-30 transition-colors"
+            className="shrink-0 self-center w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-600 hover:border-brand-800 hover:text-brand-800 disabled:opacity-30 transition-colors"
+            aria-label="Previous items"
           >
             <IconChevronLeft />
           </button>
@@ -730,7 +731,7 @@ function NewsCarousel() {
                     <span className={`badge text-xs font-medium ${tagColors[item.tag] || 'bg-gray-100 text-gray-700'}`}>
                       {item.tag}
                     </span>
-                    <span className="flex items-center gap-1 text-xs text-gray-400">
+                    <span className="flex items-center gap-1 text-xs text-gray-600">
                       <IconClock />
                       {item.date}
                     </span>
@@ -738,7 +739,7 @@ function NewsCarousel() {
                   <h3 className="font-bold text-gray-900 text-sm leading-snug mb-2 hover:text-brand-800 transition-colors line-clamp-2">
                     {item.title}
                   </h3>
-                  <p className="text-gray-500 text-xs leading-relaxed line-clamp-3 mb-3">
+                  <p className="text-gray-600 text-xs leading-relaxed line-clamp-3 mb-3">
                     {item.excerpt}
                   </p>
                   <a href="#" className="text-brand-800 text-xs font-semibold hover:text-brand-900 transition-colors inline-flex items-center gap-1">
@@ -753,7 +754,8 @@ function NewsCarousel() {
           <button
             onClick={next}
             disabled={offset >= maxOffset}
-            className="shrink-0 self-center w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-brand-800 hover:text-brand-800 disabled:opacity-30 transition-colors"
+            className="shrink-0 self-center w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-600 hover:border-brand-800 hover:text-brand-800 disabled:opacity-30 transition-colors"
+            aria-label="Next items"
           >
             <IconChevronRight />
           </button>
@@ -848,7 +850,8 @@ function AcademicPrograms() {
           <button
             onClick={prev}
             disabled={offset === 0}
-            className="shrink-0 self-center w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-brand-800 hover:text-brand-800 disabled:opacity-30 transition-colors"
+            className="shrink-0 self-center w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-600 hover:border-brand-800 hover:text-brand-800 disabled:opacity-30 transition-colors"
+            aria-label="Previous items"
           >
             <IconChevronLeft />
           </button>
@@ -879,7 +882,7 @@ function AcademicPrograms() {
                   <h3 className="font-bold text-gray-900 group-hover:text-brand-800 transition-colors text-sm mb-2">
                     {prog.name}
                   </h3>
-                  <p className="text-gray-500 text-xs leading-relaxed line-clamp-3">{prog.desc}</p>
+                  <p className="text-gray-600 text-xs leading-relaxed line-clamp-3">{prog.desc}</p>
                 </div>
               </div>
             ))}
@@ -888,7 +891,8 @@ function AcademicPrograms() {
           <button
             onClick={next}
             disabled={offset >= maxOffset}
-            className="shrink-0 self-center w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-500 hover:border-brand-800 hover:text-brand-800 disabled:opacity-30 transition-colors"
+            className="shrink-0 self-center w-10 h-10 rounded-full border-2 border-gray-200 flex items-center justify-center text-gray-600 hover:border-brand-800 hover:text-brand-800 disabled:opacity-30 transition-colors"
+            aria-label="Next items"
           >
             <IconChevronRight />
           </button>
@@ -960,7 +964,7 @@ function PlatformFeatures() {
                 <h3 className="font-bold text-gray-900 text-base mb-1.5 group-hover:text-brand-800 transition-colors">
                   {item.title}
                 </h3>
-                <p className="text-gray-500 text-sm leading-relaxed mb-3">{item.subtitle}</p>
+                <p className="text-gray-600 text-sm leading-relaxed mb-3">{item.subtitle}</p>
                 <Link to="/login" className="text-brand-800 text-sm font-semibold hover:text-brand-900 transition-colors inline-flex items-center gap-1">
                   Try it now <IconChevronRight className="w-4 h-4" />
                 </Link>
@@ -1010,8 +1014,8 @@ function VisitorsCounter() {
         <div className="flex flex-col sm:flex-row justify-center gap-10 sm:gap-16">
           {/* Today */}
           <div>
-            <p className="text-xs text-gray-400 font-semibold uppercase tracking-widest mb-1">Active Sessions Today</p>
-            <p className="text-xs text-gray-400 mb-3">24 Apr 2026</p>
+            <p className="text-xs text-gray-600 font-semibold uppercase tracking-widest mb-1">Active Sessions Today</p>
+            <p className="text-xs text-gray-600 mb-3">24 Apr 2026</p>
             <div
               className="inline-block px-6 py-3 rounded-xl font-extrabold text-white tracking-widest"
               style={{ background: '#111', fontSize: '2.5rem', fontVariantNumeric: 'tabular-nums', letterSpacing: '0.06em' }}
@@ -1022,8 +1026,8 @@ function VisitorsCounter() {
 
           {/* Total */}
           <div>
-            <p className="text-xs text-gray-400 font-semibold uppercase tracking-widest mb-1">Total Portal Logins</p>
-            <p className="text-xs text-gray-400 mb-3">Since 1 Jan 2022</p>
+            <p className="text-xs text-gray-600 font-semibold uppercase tracking-widest mb-1">Total Portal Logins</p>
+            <p className="text-xs text-gray-600 mb-3">Since 1 Jan 2022</p>
             <div
               className="inline-block px-6 py-3 rounded-xl font-extrabold text-white tracking-widest"
               style={{ background: '#111', fontSize: '2.5rem', fontVariantNumeric: 'tabular-nums', letterSpacing: '0.06em' }}
@@ -1153,12 +1157,12 @@ function HomeFooter() {
           className="pt-6 flex flex-col sm:flex-row items-center justify-between gap-3"
           style={{ borderTop: '1px solid rgba(255,255,255,0.08)' }}
         >
-          <p className="text-gray-500 text-xs">
+          <p className="text-gray-400 text-xs">
             &copy; 2026 LASUSTECH | ICT. All rights reserved.
           </p>
           <div className="flex gap-4">
-            <a href="#" className="text-gray-500 text-xs hover:text-white transition-colors">Privacy Policy</a>
-            <a href="#" className="text-gray-500 text-xs hover:text-white transition-colors">Terms of Use</a>
+            <a href="#" className="text-gray-400 text-xs hover:text-white transition-colors">Privacy Policy</a>
+            <a href="#" className="text-gray-400 text-xs hover:text-white transition-colors">Terms of Use</a>
           </div>
         </div>
       </div>

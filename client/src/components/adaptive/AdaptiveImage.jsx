@@ -69,14 +69,23 @@ export default function AdaptiveImage({ src, alt, className = '', seed, width = 
           <CoursePlaceholder alt={alt} seed={seed} className="w-full h-full" />
         </div>
       )}
-      <img
-        src={src}
-        alt={alt}
-        className={`w-full h-full object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
-        loading="lazy"
-        onLoad={() => { setLoaded(true); trackRequest(activeMode === 'medium' ? 30000 : 80000); }}
-        onError={() => setError(true)}
-      />
+      <picture>
+        {src && !isPlaceholder && (
+          <source 
+            srcSet={src.replace(/\.(jpe?g|png)$/i, '.webp')} 
+            type="image/webp" 
+          />
+        )}
+        <img
+          src={src}
+          alt={alt}
+          className={`w-full h-full object-cover transition-opacity duration-300 ${loaded ? 'opacity-100' : 'opacity-0'}`}
+          loading="lazy"
+          decoding="async"
+          onLoad={() => { setLoaded(true); trackRequest(activeMode === 'medium' ? 30000 : 80000); }}
+          onError={() => setError(true)}
+        />
+      </picture>
     </div>
   );
 }

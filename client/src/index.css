@@ -114,7 +114,7 @@
     @apply text-3xl font-extrabold text-brand-800 text-center;
   }
   .section-subtitle {
-    @apply text-base text-gray-500 text-center mt-2;
+    @apply text-base text-gray-600 text-center mt-2;
   }
   .section-title-dark {
     @apply text-3xl font-extrabold text-gray-900 text-center;
@@ -168,8 +168,8 @@
 /* ── Scrollbar ────────────────────────────────────────────────── */
 ::-webkit-scrollbar       { width: 6px; height: 6px; }
 ::-webkit-scrollbar-track { background: #f1f5f9; }
-::-webkit-scrollbar-thumb { background: #cbd5e1; border-radius: 3px; }
-::-webkit-scrollbar-thumb:hover { background: #94a3b8; }
+::-webkit-scrollbar-thumb { background: #94a3b8; border-radius: 3px; }
+::-webkit-scrollbar-thumb:hover { background: #64748b; }
 
 /* ── Homepage: Crossfade hero keyframes ────────────────────────── */
 @keyframes bounceSlow {
