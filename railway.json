@@ -15,7 +15,8 @@
     "healthcheckPath": "/",
     "healthcheckTimeout": 300,
     "env": {
-      "CI": "false"
+      "CI": "false",
+      "NODE_ENV": "production"
     }
   }
 }

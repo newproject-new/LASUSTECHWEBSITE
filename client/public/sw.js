@@ -18,7 +18,7 @@
  *    connections by avoiding unnecessary round trips.
  */
 
-const CACHE_NAME = 'lasustech-v1';
+const CACHE_NAME = 'lasustech-v2';
 
 // Core static assets pre-cached on service worker install.
 // These are the minimum files needed to render the app shell offline.
