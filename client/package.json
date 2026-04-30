@@ -1,6 +1,7 @@
 {
   "name": "lasustech-client",
   "version": "1.0.0",
+  "homepage": ".",
   "private": true,
   "proxy": "http://localhost:5000",
   "dependencies": {

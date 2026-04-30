@@ -62,13 +62,13 @@ if (isProduction) {
     // Cache static assets for 1 year
     app.use(express.static(buildPath, {
       maxAge: '1y',
-      immutable: true,
-      index: false // Let the '*' route handle index.html to avoid cache issues with the entry point
+      immutable: true
     }));
     
     app.get('*', (req, res) => {
+      // Don't serve index.html for API routes
       if (req.path.startsWith('/api/')) return res.status(404).json({ error: 'API route not found' });
-      res.sendFile(path.join(buildPath, 'index.html'));
+      res.sendFile(path.resolve(buildPath, 'index.html'));
     });
   } else {
     // Fallback to searching higher up just in case

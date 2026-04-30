@@ -1,5 +1,5 @@
 import React, { Suspense } from 'react';
-import { BrowserRouter, Routes, Route, Navigate } from 'react-router-dom';
+import { HashRouter, Routes, Route, Navigate } from 'react-router-dom';
 import { Toaster } from 'react-hot-toast';
 import { AuthProvider, useAuth } from './contexts/AuthContext';
 import { NetworkProvider } from './contexts/NetworkContext';
@@ -108,7 +108,7 @@ function AppRoutes() {
 
 export default function App() {
   return (
-    <BrowserRouter>
+    <HashRouter>
       <AuthProvider>
         <NetworkProvider>
           <AppRoutes />
@@ -130,6 +130,6 @@ export default function App() {
           />
         </NetworkProvider>
       </AuthProvider>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
