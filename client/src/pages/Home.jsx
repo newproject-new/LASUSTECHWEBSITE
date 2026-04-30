@@ -29,7 +29,7 @@ const HERO_SLIDES = [
 
 const NEWS_ITEMS = [
   {
-    image: '/images/nuc_accred.jpeg',
+    image: '/images/nuc_accred.webp',
     tag: 'Notice',
     date: 'April 10, 2026',
     title: 'Second Semester Course Enrolment Now Open on LASUSTECH Learn',
@@ -37,7 +37,7 @@ const NEWS_ITEMS = [
       'All registered students can log in to enrol in courses for the 2025/2026 second semester. Lecturers have begun uploading course outlines, reading lists, and introductory lesson materials across all active programmes.',
   },
   {
-    image: '/images/laspotech_lib.jpg',
+    image: '/images/laspotech_lib.webp',
     tag: 'Update',
     date: 'April 5, 2026',
     title: 'Over 200 Lesson Materials Uploaded by Lecturers This Week',
@@ -83,7 +83,7 @@ const NEWS_ITEMS = [
 
 const PROGRAMS = [
   {
-    image: '/images/bsc-biochemistry.jpg',
+    image: '/images/bsc-biochemistry.webp',
     name: 'BCH 301 – Biochemistry & Molecular Biology',
     desc: 'Lecture notes, lab guides, and weekly graded quizzes uploaded by your lecturer. Access course content from your student dashboard at any network speed.',
   },
@@ -113,7 +113,7 @@ const PROGRAMS = [
     desc: 'Lecturer-published notes on beams, frames, and trusses. Assignments are submitted directly through the portal with structured marking criteria.',
   },
   {
-    image: '/images/laspotech_lib.jpg',
+    image: '/images/laspotech_lib.webp',
     name: 'LIS 101 – Introduction to Information Science',
     desc: 'Interactive course modules covering information retrieval and classification. Discussion boards and upload submissions are fully active for enrolled students.',
   },
@@ -492,7 +492,9 @@ function HomeNavbar() {
 // ─── 3. Hero Section ──────────────────────────────────────────────────────────
 
 function HeroSection({ topOffset }) {
-  const [current, setCurrent]   = useState(0);
+  const [current, setCurrent] = useState(0);
+  // Track which slides have been seen so their images stay in the DOM once loaded
+  const [loadedSlides, setLoadedSlides] = useState(() => new Set([0]));
   const intervalRef = useRef(null);
 
   const startAuto = useCallback(() => {
@@ -509,6 +511,19 @@ function HeroSection({ topOffset }) {
     return () => { clearInterval(intervalRef.current); document.removeEventListener('visibilitychange', onVisibility); };
   }, [startAuto]);
 
+  // When the current slide changes, mark it and the next slide as needed
+  // so their images are in the DOM before the transition reaches them
+  useEffect(() => {
+    const next = (current + 1) % HERO_SLIDES.length;
+    setLoadedSlides(prev => {
+      if (prev.has(current) && prev.has(next)) return prev;
+      const updated = new Set(prev);
+      updated.add(current);
+      updated.add(next);
+      return updated;
+    });
+  }, [current]);
+
   const goTo = (idx) => { setCurrent(idx); startAuto(); };
   const prev = () => { setCurrent((c) => (c - 1 + HERO_SLIDES.length) % HERO_SLIDES.length); startAuto(); };
   const next = () => { setCurrent((c) => (c + 1) % HERO_SLIDES.length); startAuto(); };
@@ -518,20 +533,22 @@ function HeroSection({ topOffset }) {
       className="relative overflow-hidden"
       style={{ height: `calc(100vh - ${topOffset}px)`, minHeight: 500 }}
     >
-      {/* Slides */}
+      {/* Slides — images are only added to the DOM once the slide is about to be shown */}
       {HERO_SLIDES.map((slide, i) => (
         <div
           key={i}
           className="hero-slide"
           style={{ opacity: i === current ? 1 : 0 }}
         >
-          <img
-            src={slide.image}
-            alt={slide.headline}
-            className="w-full h-full object-cover"
-            loading={i === 0 ? 'eager' : 'lazy'}
-            fetchPriority={i === 0 ? 'high' : 'low'}
-          />
+          {loadedSlides.has(i) && (
+            <img
+              src={slide.image}
+              alt={slide.headline}
+              className="w-full h-full object-cover"
+              loading={i === 0 ? 'eager' : 'lazy'}
+              fetchPriority={i === 0 ? 'high' : 'low'}
+            />
+          )}
           {/* Dark overlay */}
           <div className="absolute inset-0" style={{ background: 'rgba(0,0,0,0.55)' }} />
         </div>
