@@ -4,14 +4,9 @@ client/node_modules/
 server/node_modules/
 
 # Environment files
-.env
-.env.*
-server/.env
-client/.env
-client/.env.*
-!.env.example
-!client/.env.example
-!server/.env.example
+**/.env
+**/.env.*
+!**/.env.example
 
 # Build output
 client/build/

@@ -137,7 +137,6 @@ if (require.main === module) {
     console.log(`\n Demo Accounts:`);
     console.log(`   Admin:    admin@lasustech.edu.ng / 123456`);
     console.log(`   Lecturer: prof.basit@lasustech.edu.ng / 123456`);
-    console.log(`   Lecturer: dr.aisha@lasustech.edu.ng / 141414`);
     console.log(`   Student:  john.ola@student.lasustech.edu.ng / 141414\n`);
   });
 }

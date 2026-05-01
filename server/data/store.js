@@ -4,7 +4,7 @@ const hash = (pwd) => bcrypt.hashSync(pwd, 10);
 
 const users = [
   {
-    id: 'u1', name: 'Prof. Basit Adewale', email: 'admin@lasustech.edu.ng',
+    id: 'u1', name: 'Prof. Basit', email: 'admin@lasustech.edu.ng',
     password: hash('123456'), role: 'admin', department: 'ICT',
     avatar: null, status: 'active', joinedAt: '2023-09-01T08:00:00Z',
     lastLogin: new Date().toISOString()
@@ -14,14 +14,7 @@ const users = [
     password: hash('123456'), role: 'lecturer', department: 'Computer Science',
     avatar: null, status: 'active', joinedAt: '2023-09-01T08:00:00Z',
     bio: 'Professor of Computer Science, Specialises in Software Engineering and AI Systems',
-    courses: ['c1', 'c3', 'c5', 'c6', 'c7'], lastLogin: new Date().toISOString()
-  },
-  {
-    id: 'u3', name: 'Prof. Abdul-basit', email: 'dr.aisha@lasustech.edu.ng',
-    password: hash('141414'), role: 'lecturer', department: 'Mathematics',
-    avatar: null, status: 'active', joinedAt: '2023-09-01T08:00:00Z',
-    bio: 'Professor of Applied Mathematics, 15+ years of teaching experience',
-    courses: ['c2', 'c4', 'c8', 'c9', 'c10'], lastLogin: new Date().toISOString()
+    courses: ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10'], lastLogin: new Date().toISOString()
   },
   {
     id: 'u4', name: 'John Oladele', email: 'john.ola@student.lasustech.edu.ng',
@@ -80,7 +73,7 @@ const courses = [
   {
     id: 'c2', code: 'MTH 201', title: 'Calculus and Linear Algebra',
     description: 'Covers differential and integral calculus including limits, derivatives, integrals, and their applications. Linear algebra topics include matrices, determinants, vector spaces, eigenvalues, and eigenvectors.',
-    lecturerId: 'u3', credits: 3, level: '200', semester: '2nd Semester 2025/2026',
+    lecturerId: 'u2', credits: 3, level: '200', semester: '2nd Semester 2025/2026',
     department: 'Mathematics', maxStudents: 80, status: 'active',
     thumbnail: null,
     objectives: ['Master differential calculus', 'Apply integral techniques', 'Understand linear transformations', 'Solve systems of equations'],
@@ -98,7 +91,7 @@ const courses = [
   {
     id: 'c4', code: 'PHY 211', title: 'Physics for Engineers',
     description: 'Applied physics for engineering students covering mechanics, thermodynamics, electromagnetism, waves and optics. Emphasis on mathematical modelling and problem-solving in engineering contexts.',
-    lecturerId: 'u3', credits: 2, level: '200', semester: '2nd Semester 2025/2026',
+    lecturerId: 'u2', credits: 2, level: '200', semester: '2nd Semester 2025/2026',
     department: 'Physics', maxStudents: 90, status: 'active',
     thumbnail: null,
     objectives: ["Apply Newton's laws", 'Understand thermodynamic principles', 'Analyse electromagnetic phenomena', 'Solve engineering physics problems'],
@@ -134,7 +127,7 @@ const courses = [
   {
     id: 'c8', code: 'MTH 301', title: 'Probability and Statistics',
     description: 'Probability theory, random variables, distributions, statistical inference, hypothesis testing, regression analysis, and their applications in science and engineering.',
-    lecturerId: 'u3', credits: 3, level: '300', semester: '2nd Semester 2025/2026',
+    lecturerId: 'u2', credits: 3, level: '300', semester: '2nd Semester 2025/2026',
     department: 'Mathematics', maxStudents: 75, status: 'active',
     thumbnail: null,
     objectives: ['Apply probability laws', 'Analyse statistical data', 'Perform hypothesis tests', 'Interpret regression output'],
@@ -143,7 +136,7 @@ const courses = [
   {
     id: 'c9', code: 'EEE 302', title: 'Electronics and Circuit Theory',
     description: 'Covers semiconductor devices, operational amplifiers, digital circuits, signal analysis, and filter design with laboratory sessions on practical circuit implementation and measurement.',
-    lecturerId: 'u3', credits: 3, level: '300', semester: '2nd Semester 2025/2026',
+    lecturerId: 'u2', credits: 3, level: '300', semester: '2nd Semester 2025/2026',
     department: 'Electrical Engineering', maxStudents: 60, status: 'active',
     thumbnail: null,
     objectives: ['Analyse AC and DC circuits', 'Design amplifier stages', 'Understand digital logic', 'Use laboratory instruments'],
@@ -152,7 +145,7 @@ const courses = [
   {
     id: 'c10', code: 'BCH 301', title: 'Biochemistry and Molecular Biology',
     description: 'Fundamental concepts of biochemistry including enzyme kinetics, metabolic pathways, molecular genetics, protein structure, and cell signalling. Laboratory practicals reinforce theoretical content.',
-    lecturerId: 'u3', credits: 3, level: '300', semester: '2nd Semester 2025/2026',
+    lecturerId: 'u2', credits: 3, level: '300', semester: '2nd Semester 2025/2026',
     department: 'Biochemistry', maxStudents: 70, status: 'active',
     thumbnail: null,
     objectives: ['Understand metabolic pathways', 'Apply enzyme kinetics', 'Interpret molecular biology data', 'Conduct biochemical assays'],
@@ -265,7 +258,7 @@ const submissions = [
     id: 's2', assignmentId: 'a3', studentId: 'u5',
     content: 'All calculus problems solved with full working shown.',
     submittedAt: '2026-05-09T18:45:00Z', grade: 92, feedback: 'Excellent work. All solutions correct. Chain rule and product rule applications are particularly strong.',
-    gradedAt: '2026-05-12T09:00:00Z', gradedBy: 'u3', status: 'graded'
+    gradedAt: '2026-05-12T09:00:00Z', gradedBy: 'u2', status: 'graded'
   },
   {
     id: 's3', assignmentId: 'a1', studentId: 'u6',
@@ -361,7 +354,7 @@ const replies = [
     createdAt: '2026-04-25T15:30:00Z', isInstructor: true
   },
   {
-    id: 'r4', discussionId: 'd4', authorId: 'u3',
+    id: 'r4', discussionId: 'd4', authorId: 'u2',
     content: 'Extra examples: d/dx[sin(eˣ)] = cos(eˣ)·eˣ. d/dx[e^(sin x)] = e^(sin x)·cos x. The key is always: outer derivative times inner derivative.',
     createdAt: '2026-04-23T10:00:00Z', isInstructor: true
   },
@@ -376,7 +369,7 @@ const replies = [
     createdAt: '2026-04-24T16:00:00Z', isInstructor: true
   },
   {
-    id: 'r7', discussionId: 'd9', authorId: 'u3',
+    id: 'r7', discussionId: 'd9', authorId: 'u2',
     content: 'If p (0.03) < α (0.05), you REJECT H₀. The evidence is strong enough to conclude the effect is statistically significant.',
     createdAt: '2026-04-21T15:00:00Z', isInstructor: true
   }
@@ -411,7 +404,7 @@ const quizzes = [
   {
     id: 'q3', courseId: 'c2', title: 'Calculus — Limits and Derivatives Quiz',
     description: 'Quick assessment on limits, continuity, and basic differentiation rules.',
-    duration: 15, status: 'active', createdBy: 'u3', createdAt: '2026-04-15T08:00:00Z',
+    duration: 15, status: 'active', createdBy: 'u2', createdAt: '2026-04-15T08:00:00Z',
     questions: [
       { id: 'q3_1', text: 'What is the derivative of f(x) = x³?', options: ['x²', '3x', '3x²', '3x³'], correctIndex: 2 },
       { id: 'q3_2', text: 'What is lim(x→0) sin(x)/x?', options: ['0', '∞', 'Undefined', '1'], correctIndex: 3 },
