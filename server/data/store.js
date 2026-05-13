@@ -17,12 +17,6 @@ const users = [
     courses: ['c1', 'c2', 'c3', 'c4', 'c5', 'c6', 'c7', 'c8', 'c9', 'c10'], lastLogin: new Date().toISOString()
   },
   {
-    id: 'u4', name: 'John Oladele', email: 'john.ola@student.lasustech.edu.ng',
-    password: hash('141414'), role: 'student', department: 'Computer Science',
-    avatar: null, status: 'active', level: '300', matric: 'LASU/CSC/300/001',
-    joinedAt: '2023-09-15T08:00:00Z', lastLogin: new Date().toISOString()
-  },
-  {
     id: 'u5', name: 'Sarah Adamu', email: 'sarah.adamu@student.lasustech.edu.ng',
     password: hash('141414'), role: 'student', department: 'Computer Science',
     avatar: null, status: 'active', level: '200', matric: 'LASU/CSC/200/042',
